@@ -82,17 +82,21 @@ const findById = async (id: string) => {
 };
 
 const confirm = async (updateTripDto: Pick<UpdateTripDto, 'id' | 'is_confirmed'>) => {
-  const trip = await TripRepository.update(updateTripDto);
+  await TripRepository.update(updateTripDto);
 
-  const { id, destination, starts_at, ends_at } = trip;
+  const trip = await TripRepository.findTripParticipants(updateTripDto.id, false);
+
+  if (!trip) {
+    throw new HttpError(HttpCode.NOT_FOUND, 'Trip not found.');
+  }
+
+  const { destination, starts_at, ends_at, participants } = trip;
 
   const formattedStartDate = dayjs(starts_at).format('LL');
   const formattedEndDate = dayjs(ends_at).format('LL');
 
-  const participants = await ParticipantRepository.findAll(id);
-
   Promise.all(
-    participants.filter(({ is_owner }) => !is_owner).map(async ({ id, email }) => {
+    participants.map(async ({ id, email }) => {
       const confirmationLink = `${env.API_BASE_URL}/participants/${id}/confirm`;
 
       sendMail({
@@ -117,4 +121,55 @@ const confirm = async (updateTripDto: Pick<UpdateTripDto, 'id' | 'is_confirmed'>
   );
 };
 
-export const TripService = { create, update, findById, confirm };
+const findTripLinks = async (tripId: string) => {
+  const trip = await TripRepository.findTripLinks(tripId);
+
+  if (!trip) {
+    throw new HttpError(HttpCode.NOT_FOUND, 'Trip not found.');
+  }
+
+  return trip.links;
+};
+
+const findTripActivities = async (tripId: string) => {
+  const trip = await TripRepository.findTripActivities(tripId);
+
+  if (!trip) {
+    throw new HttpError(HttpCode.NOT_FOUND, 'Trip not found.');
+  }
+
+  const { starts_at, ends_at, activities } = trip;
+
+  const differenceInDaysBetweenStartAneEnd = dayjs(ends_at).diff(starts_at, 'days');
+
+  return Array.from({
+    length: differenceInDaysBetweenStartAneEnd + 1,
+  }).map((_, index) => {
+    const date = dayjs(starts_at).add(index, 'days');
+
+    return {
+      date: date.toDate(),
+      activities: activities.filter(({ occurs_at }) => dayjs(occurs_at).isSame(date, 'day')),
+    };
+  });
+};
+
+const findTripParticipants = async (tripId: string) => {
+  const trip = await TripRepository.findTripParticipants(tripId);
+
+  if (!trip) {
+    throw new HttpError(HttpCode.NOT_FOUND, 'Trip not found.');
+  }
+
+  return trip.participants;
+};
+
+export const TripService = {
+  create,
+  update,
+  findById,
+  confirm,
+  findTripLinks,
+  findTripActivities,
+  findTripParticipants,
+};

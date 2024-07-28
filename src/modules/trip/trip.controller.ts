@@ -21,4 +21,24 @@ const confirm = async (updateTripDto: Pick<UpdateTripDto, 'id' | 'is_confirmed'>
   TripService.confirm(updateTripDto);
 };
 
-export const TripController = { create, update, findById, confirm };
+const findTripLinks = async (tripId: string) => {
+  return TripService.findTripLinks(tripId);
+};
+
+const findTripActivities = async (tripId: string) => {
+  return TripService.findTripActivities(tripId);
+};
+
+const findTripParticipants = async (tripId: string) => {
+  return TripService.findTripParticipants(tripId);
+};
+
+export const TripController = {
+  create,
+  update,
+  findById,
+  confirm,
+  findTripLinks,
+  findTripActivities,
+  findTripParticipants,
+};

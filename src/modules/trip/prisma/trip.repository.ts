@@ -44,7 +44,64 @@ const update = async (updateTripDto: UpdateTripDto) => {
 };
 
 const findById = async (id: string) => {
-  return prisma.trip.findUnique({ where: { id } });
+  return prisma.trip.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      destination: true,
+      starts_at: true,
+      ends_at: true,
+      is_confirmed: true,
+    },
+  });
 };
 
-export const TripRepository = { create, update, findById };
+const findTripLinks = async (tripId: string) => {
+  return prisma.trip.findUnique({
+    where: { id: tripId },
+    include: { links: true },
+  });
+};
+
+const findTripActivities = async (tripId: string) => {
+  return prisma.trip.findUnique({
+    where: { id: tripId },
+    include: {
+      activities: {
+        orderBy: {
+          occurs_at: 'asc',
+        },
+      },
+    },
+  });
+};
+
+const findTripParticipants = async (tripId: string, isOwner?: boolean) => {
+  return prisma.trip.findUnique({
+    where: {
+      id: tripId,
+    },
+    include: {
+      participants: {
+        where: {
+          is_owner: isOwner,
+        },
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          is_confirmed: true,
+        },
+      },
+    },
+  });
+};
+
+export const TripRepository = {
+  create,
+  update,
+  findById,
+  findTripLinks,
+  findTripActivities,
+  findTripParticipants,
+};

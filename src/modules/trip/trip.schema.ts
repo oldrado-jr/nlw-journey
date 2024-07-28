@@ -34,9 +34,62 @@ const confirmTripSchema = {
   }),
 };
 
+const createTripLinkSchema = {
+  params: z.object({
+    tripId: z.string().uuid(),
+  }),
+  body: z.object({
+    title: z.string().min(4),
+    url: z.string().url(),
+  }),
+};
+
+const findTripLinksSchema = {
+  params: z.object({
+    tripId: z.string().uuid(),
+  }),
+};
+
+const createTripActivitySchema = {
+  params: z.object({
+    tripId: z.string().uuid(),
+  }),
+  body: z.object({
+    title: z.string().min(4),
+    occurs_at: z.coerce.date(),
+  }),
+};
+
+const findTripActivitiesSchema = {
+  params: z.object({
+    tripId: z.string().uuid(),
+  }),
+};
+
+const createInviteForTripSchema = {
+  params: z.object({
+    tripId: z.string().uuid(),
+  }),
+  body: z.object({
+    email: z.string().email(),
+  }),
+};
+
+const findTripParticipantsSchema = {
+  params: z.object({
+    tripId: z.string().uuid(),
+  }),
+};
+
 export const TripSchema = {
   createTripSchema,
   updateTripSchema,
   findTripByIdSchema,
   confirmTripSchema,
+  createTripLinkSchema,
+  findTripLinksSchema,
+  createTripActivitySchema,
+  findTripActivitiesSchema,
+  createInviteForTripSchema,
+  findTripParticipantsSchema,
 };

@@ -9,10 +9,4 @@ const create = async (createLinkDto: CreateLinkDto) => {
   return LinkService.create(createLinkDto);
 };
 
-const findAll = async (tripId: string) => {
-  await TripService.findById(tripId);
-
-  return LinkService.findAll(tripId);
-};
-
-export const LinkController = { create, findAll };
+export const LinkController = { create };

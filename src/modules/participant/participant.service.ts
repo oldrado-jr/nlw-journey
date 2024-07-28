@@ -61,13 +61,4 @@ const findById = async (id: string) => {
   return participant;
 };
 
-const findAll = async (tripId: string) => {
-  const [, participants] = await Promise.all([
-    TripService.findById(tripId),
-    ParticipantRepository.findAll(tripId),
-  ]);
-
-  return participants;
-};
-
-export const ParticipantService = { create, update, findById, findAll };
+export const ParticipantService = { create, update, findById };

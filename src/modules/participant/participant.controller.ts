@@ -14,8 +14,4 @@ const findById = async (id: string) => {
   return ParticipantService.findById(id);
 };
 
-const findAll = async (tripId: string) => {
-  return ParticipantService.findAll(tripId);
-};
-
-export const ParticipantController = { create, update, findById, findAll };
+export const ParticipantController = { create, update, findById };

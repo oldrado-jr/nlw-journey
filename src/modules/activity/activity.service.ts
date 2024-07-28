@@ -21,26 +21,4 @@ const create = async (createActivityDto: CreateActivityDto) => {
   return ActivityRepository.create(createActivityDto);
 };
 
-const findAll = async (tripId: string) => {
-  const [trip, activities] = await Promise.all([
-    TripService.findById(tripId),
-    ActivityRepository.findAll(tripId),
-  ]);
-
-  const { starts_at, ends_at } = trip;
-
-  const differenceInDaysBetweenStartAneEnd = dayjs(ends_at).diff(starts_at, 'days');
-
-  return Array.from({
-    length: differenceInDaysBetweenStartAneEnd + 1,
-  }).map((_, index) => {
-    const date = dayjs(starts_at).add(index, 'days');
-
-    return {
-      date: date.toDate(),
-      activities: activities.filter(({ occurs_at }) => dayjs(occurs_at).isSame(date, 'day')),
-    };
-  });
-};
-
-export const ActivityService = { create, findAll };
+export const ActivityService = { create };

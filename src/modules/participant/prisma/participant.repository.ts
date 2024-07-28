@@ -16,11 +16,15 @@ const update = async (updateParticipantDto: UpdateParticipantDto) => {
 };
 
 const findById = async (id: string) => {
-  return prisma.participant.findUnique({ where: { id } });
+  return prisma.participant.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      is_confirmed: true,
+    },
+  });
 };
 
-const findAll = async (tripId: string) => {
-  return prisma.participant.findMany({ where: { trip_id: tripId } });
-};
-
-export const ParticipantRepository = { create, update, findById, findAll };
+export const ParticipantRepository = { create, update, findById };

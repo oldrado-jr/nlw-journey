@@ -5,8 +5,4 @@ const create = async (createActivityDto: CreateActivityDto) => {
   return ActivityService.create(createActivityDto);
 };
 
-const findAll = async (tripId: string) => {
-  return ActivityService.findAll(tripId);
-};
-
-export const ActivityController = { create, findAll };
+export const ActivityController = { create };
