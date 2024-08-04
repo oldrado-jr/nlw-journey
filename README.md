@@ -12,27 +12,22 @@
 - SQLite;
 - Fastify;
 - Zod;
-- Nodemailer.
+- Nodemailer;
+- Docker.
 
 ## Instruções
 
-- Instalar as dependências do projeto:
+- Criar o arquivo `.env` e preencher as variáveis de ambiente conforme sua necessidade:
 
-```sh
-npm i
+```bash
+cp .env.example .env
 ```
 
-- Preencher as variáveis de ambiente no arquivo `.env`, criado após instalação das dependências do projeto;
-- Executar as _migrations_:
+- Executar o comando abaixo para subir o container da aplicação:
+  - Certifique-se de ter configurado servidores DNS para o Docker, no arquivo `daemon.json`.
 
-```sh
-npm run migration
+```bash
+docker compose up -d
 ```
 
-- Iniciar o servidor:
-
-```sh
-npm run dev
-```
-
-- Assim, a API deverá estar acessível na URL informada no arquivo `.env`.
+- Aguarde alguns instantes e a API deverá estar acessível na URL informada no arquivo `.env`.

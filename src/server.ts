@@ -23,7 +23,7 @@ app.setErrorHandler(errorHandler);
 app.register(BaseRouter);
 
 const start = async () => {
-  await app.listen({ port: env.PORT });
+  await app.listen({ port: env.PORT, host: env.HOST });
   console.log(`Server listening on ${env.API_BASE_URL}`);
 };
 

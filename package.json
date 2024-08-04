@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "prepare": "cp -n .env.example .env",
     "dev": "tsx watch src/server.ts",
     "migration": "prisma migrate dev"
   },

@@ -1,0 +1,10 @@
+services:
+  planner-api:
+    build: .
+    container_name: planner-api
+    working_dir: /usr/src/app
+    entrypoint: ["dockerize", ".docker/entrypoint.sh"]
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - .:/usr/src/app
