@@ -4,7 +4,38 @@ services:
     container_name: planner-api
     working_dir: /usr/src/app
     entrypoint: ["dockerize", ".docker/entrypoint.sh"]
+    depends_on:
+      - postgres
     ports:
-      - "${PORT}:${PORT}"
+      - ${PORT}:${PORT}
     volumes:
       - .:/usr/src/app
+
+  postgres:
+    image: postgres:alpine
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    volumes:
+      - ~/.data/PostgreSQL:/var/lib/postgresql
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - ${PGADMIN_PORT}:80
+
+networks:
+  default:
+    name: local-network
+    driver: bridge

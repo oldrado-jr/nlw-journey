@@ -9,7 +9,7 @@
 - TypeScript;
 - Nodejs;
 - Prisma ORM;
-- SQLite;
+- PostgreSQL;
 - Fastify;
 - Zod;
 - Nodemailer;
