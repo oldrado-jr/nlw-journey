@@ -1,5 +1,5 @@
-import { CreateParticipantDto } from './dto/create-participant.dto';
-import { UpdateParticipantDto } from './dto/update-participant.dto';
+import type { CreateParticipantDto } from './dto/create-participant.dto';
+import type { UpdateParticipantDto } from './dto/update-participant.dto';
 import { ParticipantService } from './participant.service';
 
 const create = async (createParticipantDto: CreateParticipantDto) => {

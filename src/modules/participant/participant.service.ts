@@ -4,8 +4,8 @@ import { HttpCode } from '../../enums/http-code';
 import { HttpError } from '../../errors/http-error';
 import { dayjs } from '../../lib/dayjs';
 import { TripService } from '../trip/trip.service';
-import { CreateParticipantDto } from './dto/create-participant.dto';
-import { UpdateParticipantDto } from './dto/update-participant.dto';
+import type { CreateParticipantDto } from './dto/create-participant.dto';
+import type { UpdateParticipantDto } from './dto/update-participant.dto';
 import { ParticipantRepository } from './prisma/participant.repository';
 
 const create = async (createParticipantDto: CreateParticipantDto) => {
@@ -14,11 +14,7 @@ const create = async (createParticipantDto: CreateParticipantDto) => {
   const trip = await TripService.findById(trip_id);
   const participant = await ParticipantRepository.create(createParticipantDto);
 
-  const {
-    destination,
-    starts_at,
-    ends_at,
-  } = trip;
+  const { destination, starts_at, ends_at } = trip;
 
   const formattedStartDate = dayjs(starts_at).format('LL');
   const formattedEndDate = dayjs(ends_at).format('LL');

@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import Mail from 'nodemailer/lib/mailer';
+import type Mail from 'nodemailer/lib/mailer';
 
 import { getMailClient } from '../lib/mail';
 

@@ -1,5 +1,5 @@
 import { TripService } from '../trip/trip.service';
-import { CreateLinkDto } from './dto/create-link.dto';
+import type { CreateLinkDto } from './dto/create-link.dto';
 import { LinkService } from './link.service';
 
 const create = async (createLinkDto: CreateLinkDto) => {

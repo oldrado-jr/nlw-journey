@@ -1,6 +1,6 @@
 import { prisma } from '../../../lib/prisma';
-import { CreateTripDto } from '../dto/create-trip.dto';
-import { UpdateTripDto } from '../dto/update-trip.dto';
+import type { CreateTripDto } from '../dto/create-trip.dto';
+import type { UpdateTripDto } from '../dto/update-trip.dto';
 
 const create = async (createTripDto: CreateTripDto) => {
   const {
@@ -26,7 +26,7 @@ const create = async (createTripDto: CreateTripDto) => {
               is_owner: true,
               is_confirmed: true,
             },
-            ...emails_to_invite.map((email) => ({ email }))
+            ...emails_to_invite.map((email) => ({ email })),
           ],
         },
       },

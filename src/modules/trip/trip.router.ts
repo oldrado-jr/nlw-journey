@@ -1,5 +1,5 @@
-import { FastifyInstance } from 'fastify';
-import { ZodTypeProvider } from 'fastify-type-provider-zod';
+import type { FastifyInstance } from 'fastify';
+import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 
 import { HttpCode } from '../../enums/http-code';
 import { ActivityController } from '../activity/activity.controller';
@@ -9,31 +9,39 @@ import { TripController } from './trip.controller';
 import { TripSchema } from './trip.schema';
 
 const create = async (app: FastifyInstance) => {
-  app.withTypeProvider<ZodTypeProvider>().post('/trips', {
-    schema: TripSchema.createTripSchema,
-  }, async (request, reply) => {
-    const { id } = await TripController.create({ ...request.body });
+  app.withTypeProvider<ZodTypeProvider>().post(
+    '/trips',
+    {
+      schema: TripSchema.createTripSchema,
+    },
+    async (request, reply) => {
+      const { id } = await TripController.create({ ...request.body });
 
-    return reply.status(HttpCode.CREATED).send({ tripId: id });
-  });
+      return reply.status(HttpCode.CREATED).send({ tripId: id });
+    },
+  );
 };
 
 const update = async (app: FastifyInstance) => {
-  app.withTypeProvider<ZodTypeProvider>().put('/trips/:tripId', {
-    schema: TripSchema.updateTripSchema,
-  }, async (request, reply) => {
-    const { tripId } = request.params;
-    const { destination, starts_at, ends_at } = request.body;
+  app.withTypeProvider<ZodTypeProvider>().put(
+    '/trips/:tripId',
+    {
+      schema: TripSchema.updateTripSchema,
+    },
+    async (request, reply) => {
+      const { tripId } = request.params;
+      const { destination, starts_at, ends_at } = request.body;
 
-    await TripController.update({
-      id: tripId,
-      destination,
-      starts_at,
-      ends_at,
-    });
+      await TripController.update({
+        id: tripId,
+        destination,
+        starts_at,
+        ends_at,
+      });
 
-    return reply.status(HttpCode.NO_CONTENT).send();
-  });
+      return reply.status(HttpCode.NO_CONTENT).send();
+    },
+  );
 };
 
 const findById = async (app: FastifyInstance) => {
@@ -168,7 +176,9 @@ const createInviteForTrip = async (app: FastifyInstance) => {
         trip_id: tripId,
       });
 
-      return reply.status(HttpCode.CREATED).send({ participantId: participant.id });
+      return reply
+        .status(HttpCode.CREATED)
+        .send({ participantId: participant.id });
     },
   );
 };

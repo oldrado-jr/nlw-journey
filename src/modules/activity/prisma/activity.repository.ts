@@ -1,5 +1,5 @@
 import { prisma } from '../../../lib/prisma';
-import { CreateActivityDto } from '../dto/create-activity.dto';
+import type { CreateActivityDto } from '../dto/create-activity.dto';
 
 const create = async (createActivityDto: CreateActivityDto) => {
   return prisma.activity.create({ data: createActivityDto });

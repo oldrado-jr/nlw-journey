@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify';
+import type { FastifyInstance } from 'fastify';
 import { ZodError } from 'zod';
 
 import { HttpCode } from '../enums/http-code';
@@ -20,5 +20,7 @@ export const errorHandler: FastifyErrorHandler = (error, request, reply) => {
     });
   }
 
-  return reply.status(HttpCode.INTERNAL_SERVER_ERROR).send({ message: 'Internal server error' });
+  return reply
+    .status(HttpCode.INTERNAL_SERVER_ERROR)
+    .send({ message: 'Internal server error' });
 };

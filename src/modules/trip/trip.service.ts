@@ -3,19 +3,13 @@ import { env } from '../../config/env';
 import { HttpCode } from '../../enums/http-code';
 import { HttpError } from '../../errors/http-error';
 import { dayjs } from '../../lib/dayjs';
-import { ParticipantRepository } from '../participant/prisma/participant.repository';
-import { CreateTripDto } from './dto/create-trip.dto';
-import { UpdateTripDto } from './dto/update-trip.dto';
+import type { CreateTripDto } from './dto/create-trip.dto';
+import type { UpdateTripDto } from './dto/update-trip.dto';
 import { TripRepository } from './prisma/trip.repository';
 
 const create = async (createTripDto: CreateTripDto) => {
-  const {
-    starts_at,
-    ends_at,
-    destination,
-    owner_name,
-    owner_email,
-  } = createTripDto;
+  const { starts_at, ends_at, destination, owner_name, owner_email } =
+    createTripDto;
 
   if (dayjs(starts_at).isBefore(new Date())) {
     throw new HttpError(HttpCode.BAD_REQUEST, 'Invalid trip start date.');
@@ -81,10 +75,15 @@ const findById = async (id: string) => {
   return trip;
 };
 
-const confirm = async (updateTripDto: Pick<UpdateTripDto, 'id' | 'is_confirmed'>) => {
+const confirm = async (
+  updateTripDto: Pick<UpdateTripDto, 'id' | 'is_confirmed'>,
+) => {
   await TripRepository.update(updateTripDto);
 
-  const trip = await TripRepository.findTripParticipants(updateTripDto.id, false);
+  const trip = await TripRepository.findTripParticipants(
+    updateTripDto.id,
+    false,
+  );
 
   if (!trip) {
     throw new HttpError(HttpCode.NOT_FOUND, 'Trip not found.');
@@ -140,7 +139,10 @@ const findTripActivities = async (tripId: string) => {
 
   const { starts_at, ends_at, activities } = trip;
 
-  const differenceInDaysBetweenStartAneEnd = dayjs(ends_at).diff(starts_at, 'days');
+  const differenceInDaysBetweenStartAneEnd = dayjs(ends_at).diff(
+    starts_at,
+    'days',
+  );
 
   return Array.from({
     length: differenceInDaysBetweenStartAneEnd + 1,
@@ -149,7 +151,9 @@ const findTripActivities = async (tripId: string) => {
 
     return {
       date: date.toDate(),
-      activities: activities.filter(({ occurs_at }) => dayjs(occurs_at).isSame(date, 'day')),
+      activities: activities.filter(({ occurs_at }) =>
+        dayjs(occurs_at).isSame(date, 'day'),
+      ),
     };
   });
 };

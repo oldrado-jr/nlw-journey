@@ -1,6 +1,6 @@
 import { prisma } from '../../../lib/prisma';
-import { CreateParticipantDto } from '../dto/create-participant.dto';
-import { UpdateParticipantDto } from '../dto/update-participant.dto';
+import type { CreateParticipantDto } from '../dto/create-participant.dto';
+import type { UpdateParticipantDto } from '../dto/update-participant.dto';
 
 const create = async (createParticipantDto: CreateParticipantDto) => {
   return prisma.participant.create({ data: createParticipantDto });

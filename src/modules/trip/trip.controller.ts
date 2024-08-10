@@ -1,5 +1,5 @@
-import { CreateTripDto } from './dto/create-trip.dto';
-import { UpdateTripDto } from './dto/update-trip.dto';
+import type { CreateTripDto } from './dto/create-trip.dto';
+import type { UpdateTripDto } from './dto/update-trip.dto';
 import { TripService } from './trip.service';
 
 const create = async (createTripDto: CreateTripDto) => {
@@ -17,7 +17,9 @@ const findById = async (id: string) => {
   return TripService.findById(id);
 };
 
-const confirm = async (updateTripDto: Pick<UpdateTripDto, 'id' | 'is_confirmed'>) => {
+const confirm = async (
+  updateTripDto: Pick<UpdateTripDto, 'id' | 'is_confirmed'>,
+) => {
   TripService.confirm(updateTripDto);
 };
 

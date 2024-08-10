@@ -2,7 +2,7 @@ import cors from '@fastify/cors';
 import fastify from 'fastify';
 import {
   serializerCompiler,
-  validatorCompiler
+  validatorCompiler,
 } from 'fastify-type-provider-zod';
 
 import { env } from './config/env';
