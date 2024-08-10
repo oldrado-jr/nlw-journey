@@ -1,5 +1,7 @@
 # NLW Journey - Nodejs
 
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
+
 ## Projeto
 
 - API REST para gerenciamento de viagens, desenvolvida em Nodejs.
@@ -12,10 +14,6 @@
 - PostgreSQL;
 - Fastify;
 - Zod;
-- Nodemailer;
-- Biome;
-- Husky;
-- Lint-staged;
 - Docker.
 
 ## Instruções
@@ -27,7 +25,7 @@ cp .env.example .env
 ```
 
 - Executar o comando abaixo para subir o container da aplicação:
-  - Certifique-se de especificar servidores DNS para o Docker. Saiba como [clicando aqui](https://docs.docker.com/config/daemon/troubleshoot/#specify-dns-servers-for-docker).
+  - Certifique-se de especificar servidores DNS para o Docker. Saiba mais [clicando aqui](https://docs.docker.com/config/daemon/troubleshoot/#specify-dns-servers-for-docker).
 
 ```bash
 docker compose up -d
