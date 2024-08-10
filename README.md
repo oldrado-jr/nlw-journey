@@ -4,7 +4,7 @@
 
 - API REST para gerenciamento de viagens, desenvolvida em Nodejs.
 
-## Tecnologias
+## Tecnologias e Ferramentas
 
 - TypeScript;
 - Nodejs;
@@ -13,6 +13,9 @@
 - Fastify;
 - Zod;
 - Nodemailer;
+- Biome;
+- Husky;
+- Lint-staged;
 - Docker.
 
 ## Instruções
@@ -24,7 +27,7 @@ cp .env.example .env
 ```
 
 - Executar o comando abaixo para subir o container da aplicação:
-  - Certifique-se de ter configurado servidores DNS para o Docker, no arquivo `daemon.json`.
+  - Certifique-se de especificar servidores DNS para o Docker. Saiba como [clicando aqui](https://docs.docker.com/config/daemon/troubleshoot/#specify-dns-servers-for-docker).
 
 ```bash
 docker compose up -d
