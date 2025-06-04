@@ -25,7 +25,7 @@ cp .env.example .env
 ```
 
 - Executar o comando abaixo para subir o container da aplicação:
-  - Certifique-se de especificar servidores DNS para o Docker. Saiba mais [clicando aqui](https://docs.docker.com/config/daemon/troubleshoot/#specify-dns-servers-for-docker).
+  - Certifique-se de especificar servidores DNS para o Docker. Saiba mais <a href="https://docs.docker.com/engine/daemon/troubleshoot/#specify-dns-servers-for-docker" target="_blank" noopener noreferrer>clicando aqui</a>.
 
 ```bash
 docker compose up -d
